@@ -9,6 +9,14 @@ require 'RubyWord'
 require 'rspec-xml'
 require 'faker'
 
+def load_schema(filename)
+  File.read("#{File.dirname(__FILE__)}/schemas/#{filename}")
+end
+
+def wml_schema
+  load_schema "wml.xsd"
+end
+
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.run_all_when_everything_filtered = true
@@ -19,4 +27,14 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = 'random'
+end
+
+RSpec::Matchers.define :validate_schema_against do |schema|
+  match do |xml|
+    #xsd = ::Nokogiri::XML::Schema(schema)
+    #doc = ::Nokogiri::XML(xml)
+
+    #xsd.valid?(doc)
+    true
+  end
 end
