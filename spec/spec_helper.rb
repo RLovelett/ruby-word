@@ -10,10 +10,11 @@ require 'rspec-xml'
 require 'faker'
 
 def load_schema(filename)
-  File.read("#{File.dirname(__FILE__)}/schemas/#{filename}")
+  File.open("#{File.dirname(__FILE__)}/schemas/#{filename}")
 end
 
 def wml_schema
+  #load_schema "vml-presentationDrawing.xsd"
   load_schema "wml.xsd"
 end
 
@@ -30,11 +31,29 @@ RSpec.configure do |config|
 end
 
 RSpec::Matchers.define :validate_schema_against do |schema|
-  match do |xml|
-    #xsd = ::Nokogiri::XML::Schema(schema)
-    #doc = ::Nokogiri::XML(xml)
 
-    #xsd.valid?(doc)
-    true
+  # Load the XSD schema file
+  xsd = ::Nokogiri::XML::Schema(schema)
+
+  match do |xml|
+    # Create the XML document
+    doc = ::Nokogiri::XML(xml)
+
+    # Validate it against the XSD file
+    xsd.valid?(doc)
+  end
+
+  failure_message_for_should do |xml|
+    # Create the XML document
+    doc = ::Nokogiri::XML(xml)
+
+    # Print all of the validation error messages
+    xsd.validate(doc).each_with_index.map do |error, index|
+      "#{index + 1}. #{error.message}"
+    end.join("\n")
+  end
+
+  failure_message_for_should_not do |xml|
+    "expected XML to not validate agains schema"
   end
 end
