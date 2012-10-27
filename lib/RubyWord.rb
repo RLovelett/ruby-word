@@ -1,4 +1,6 @@
 require "RubyWord/version"
+require "nokogiri"
+require "zippy"
 
 module RubyWord
   LIBRARY_PATH = File.dirname(__FILE__)
@@ -10,6 +12,8 @@ module RubyWord
     autoload :Points, File.join(UNITS_PATH, 'pitch')
     autoload :Twips, File.join(UNITS_PATH, 'twips')
   end
+
+  autoload :Document, File.join(File.dirname(__FILE__), 'document')
 
   # Monkey patch the Numeric Ruby class
   require 'core_ext/numeric'
