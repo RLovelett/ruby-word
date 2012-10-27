@@ -27,7 +27,6 @@ module RubyWord
     #
     # Optionally, this can "pretty-print" the XML string
     def to_xml(pretty_print = false)
-      puts @builder.to_xml
       @builder.to_xml
     end
   end
