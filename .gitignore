@@ -12,7 +12,12 @@ test/tmp
 test/version_tmp
 tmp
 
+Gemfile.lock
+
 # YARD artifacts
 .yardoc
 _yardoc
 doc/
+
+# OSX artifacts
+.DS_Store
