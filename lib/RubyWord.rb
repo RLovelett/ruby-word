@@ -14,6 +14,8 @@ module RubyWord
   end
 
   autoload :Document, File.join(File.dirname(__FILE__), 'document')
+  autoload :Paragraph, File.join(File.dirname(__FILE__), 'paragraph')
+  autoload :Run, File.join(File.dirname(__FILE__), 'run')
 
   # Monkey patch the Numeric Ruby class
   require 'core_ext/numeric'
