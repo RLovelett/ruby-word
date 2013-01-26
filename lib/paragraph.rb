@@ -10,8 +10,8 @@ module RubyWord
       run.instance_eval(&block) if block_given?
     end
 
-    def to_xml
-      ""
+    def to_xml(xml_doc)
+      xml_doc.create_element("p")
     end
 
   end
